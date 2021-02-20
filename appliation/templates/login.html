@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block title %}
+<title>{{title}}</title>
+{% endblock  %}
+
+  {% block style %}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
+  {% endblock style %}
+{% block script %}
+<script>
+    $(document).ready(function (){
+        html_new = '<div class="container mt-4 img">\n' +
+            '    <form method="POST" action="login">\n' +
+            '        {{ form.hidden_tag() }}\n' +
+            '\n' +
+            '        <fieldset class="form-group">\n' +
+            '            <legend class="border-bottom mb-4 text-center">Login</legend>\n' +
+            '            <div class="col-auto">\n' +
+            '             <div class="form-group">\n' +
+            '                {{ form.email.label(class="form-control-label") }}\n' +
+            '                 {% if form.email.errors %}\n' +
+            '                {{ form.email(class="form-control form-control-lg is-invalid") }}\n' +
+            '                <div class="error-feedback">\n' +
+            '                    {% for error in form.email.errors %}\n' +
+            '                    <span class="">{{ error }}</span>\n' +
+            '                    {% endfor %}\n' +
+            '                </div>\n' +
+            '                {% else %}\n' +
+            '                 {{ form.email(class="form-control form-control-lg ") }}\n' +
+            '                {% endif %}\n' +
+            '\n' +
+            '            </div>\n' +
+            '             <div class="form-group ">\n' +
+            '                {{ form.password.label(class="form-control-label") }}\n' +
+            '                 {% if form.password.errors %}\n' +
+            '                {{ form.password(class="form-control form-control-lg is-invalid") }}\n' +
+            '                <div class="error-feedback">\n' +
+            '                    {% for error in form.password.errors %}\n' +
+            '                    <span class="">{{ error }}</span>\n' +
+            '                    {% endfor %}\n' +
+            '                </div>\n' +
+            '                {% else %}\n' +
+            '                 {{ form.password(class="form-control form-control-lg ") }}\n' +
+            '                   {% endif %}\n' +
+            '            </div>\n' +
+            '            <div class="form-check">\n' +
+            '                {% if form.rememberMe.errors %}\n' +
+            '                {{form.rememberMe(class="form-control form-control-lg is-invalid")}}\n' +
+            '                <div class="error-feedback">\n' +
+            '                    {% for error in form.rememberMe.errors %}\n' +
+            '                    <span class="">{{error}}</span>\n' +
+            '                    {% endfor %}\n' +
+            '                </div>\n' +
+            '                {% else %}\n' +
+            '                  {{form.rememberMe(class="form-check-input")}}\n' +
+            '                  {{form.rememberMe.label(class="form-check-label")}}\n' +
+            '            {% endif %}\n' +
+            '            </div>\n' +
+            '            <div class="form-group text-center">\n' +
+            '                {{ form.submit(class="btn ",style="width:200px") }}\n' +
+            '            </div>\n' +
+            '            <small class="text-muted" >\n' +
+            '                <a  href="{{url_for('users.reset_request')}}" >Forgot Password</a>\n' +
+            '            </small>\n' +
+            '        <div class="border-bottom text text-center ">\n' +
+            '            <small class="text-muted">\n' +
+            '                Need an account ? <a class="ml-2" href="{{ url_for("users.register") }}">Sign Up Now!</a>\n' +
+            '            </small>\n' +
+            '        </div>\n' +
+            '                </div>\n' +
+            '        </fieldset>\n' +
+            '    </form>\n' +
+            '    </div>\n'
+      $("div.container-main").append(html_new)
+      $(":text").change(function (){
+        $(this).css('background-color','transparent');
+      });
+    });
+</script>
+{% endblock script %}

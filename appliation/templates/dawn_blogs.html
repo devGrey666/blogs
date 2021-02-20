@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+{% block title %}
+<title>{{title}}</title>
+{% endblock title %}
+{% block style %}
+<style>
+.card-header{
+background-color:#33CCCC;
+color:white;
+font-family:Grotesque;
+margin-top:0px;
+}
+ .card-text{
+ font-family:calibri;
+ font-size:18px;
+ }
+ .card-footer{
+ display:flex;
+
+background-color:#33CCCC;
+color:white;
+font-family:Grotesque;
+margin-top:0px;
+font-size:18px;
+ }
+ .card-footer span{
+ flex:1;
+ }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="container">
+    {% if blogs %}
+  <div class="card mt-2 ">
+    {% for blog in blogs.items %}
+      <h1 class="card-header text-center text-capitalize">
+          {{blog.blog_title }}
+      </h1>
+      <article class="card-body">
+          <h4 class="card-title">
+              {{blog.blog_heading}}
+          </h4>
+          {% for para in blog.blog_content.split('&') %}
+          <p class="card-text mb-1" style=" text-align:justify;text-indent:80px;letter-spacing:-0.3px;word-spacing:3px;line-height:1.3;">
+              {{para}}
+          </p><br >
+{% endfor %}
+
+
+      </article>
+      <div class="card-footer">
+         <span class="ml-2 ">Published Date: <em class="text-muted">{{blog.blog_published_time.strftime('%B %d,%Y')}}</em></span>
+          <span >Author: <em class="text-muted">{{blog.author.author_name}}  ({{blog.blog_news_site}})</em></span>
+          <span class="mr-2 ml-3">Scraped Date: <em class="text-muted">{{blog.blog_scrap_time.strftime('%B %d,%Y  %I:%H %p')}}</em></span>
+      </div>
+    {% endfor %}
+
+    {% endif  %}
+</div>
+
+<nav aria-label="Page navigation example" class="text-center mt-3 " style="margin-left:40%;">
+
+  <ul class="pagination">
+
+     {% if blogs.page == 1 %}
+    <li class="page-item disabled">
+      <a class="page-link " href="/author/{{blogs.items[0].author_id}}?page={{blogs.prev_num}}" aria-label="Next">
+        &laquo;
+      </a>
+    </li>
+      {% else %}
+    <li class="page-item ">
+      <a class="page-link " href="/author/{{blogs.items[0].author_id}}?page={{blogs.prev_num}}" aria-label="Next">
+        &laquo;
+      </a>
+    </li>
+      {% endif %}
+      {% for page_num in blogs.iter_pages(left_edge=1,right_edge=1,left_current=2,right_current=2) %}
+        {% if page_num %}
+        {% if blogs.page == page_num  %}
+      <li class="page-item active"><a class="page-link" href="/author/{{blogs.items[0].author_id}}?page={{page_num}}">{{page_num}} </a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" href="/author/{{blogs.items[0].author_id}}?page={{page_num}}">{{page_num}} </a></li>
+        {% endif  %}
+
+      {% else %}
+      ...
+        {% endif %}
+      {% endfor %}
+
+        {% if blogs.page == blogs.pages %}
+    <li class="page-item disabled">
+      <a class="page-link " href="/author/{{blogs.items[0].author_id}}?page={{blogs.next_num}}" aria-label="Next">
+        &raquo;
+      </a>
+    </li>
+      {% else %}
+    <li class="page-item ">
+      <a class="page-link " href="/author/{{blogs.items[0].author_id}}?page={{blogs.next_num}}" aria-label="Next">
+        &raquo;
+      </a>
+    </li>
+      {% endif %}
+
+<p class="text-center mt-2 text-info" style="margin-left:50px;">Showing {{blogs.page}} of {{blogs.pages}}</p>
+  </ul>
+
+
+</nav>
+
+</div>
+{%endblock content%}

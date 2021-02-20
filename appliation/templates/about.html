@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+{% block title %}
+<title>{{title}}</title>
+{% endblock  %}
+{% block style %}
+<style>
+
+    #aboutCard{
+        position: absolute;
+        height: 500px;
+        width: 500px;
+        top: 10px;
+        left: 30%;
+    }
+</style>
+{% endblock style %}
+{% block innerContent %}
+
+<div class="container">
+    <div class="card" id='aboutCard' ></div>
+</div>
+{% endblock innerContent %}
+
+{% block content %}
+<!--<img src="/static/images/3.jpg" id="mainImage"-->
+<!--     style="height: 500px;width: 520px;border: 1px solid grey">-->
+<!--<div id="thumbNail" class="mb-2">-->
+<!--    <img src="/static/images/2.jpg" style="height: 100px;width: 100px;border: 1px solid grey;">-->
+<!--    <img src="/static/images/1.jpg" style="height: 100px;width: 100px;border: 1px solid grey;">-->
+<!--    <img src="/static/images/4.jpg" style="height: 100px;width: 100px;border: 1px solid grey;">-->
+<!--    <img src="/static/images/5.jpg" style="height: 100px;width: 100px;border: 1px solid grey;">-->
+<!--    <img src="/static/images/7.jpg" style="height: 100px;width: 100px;border: 1px solid grey;">-->
+<!--</div>-->
+
+<!--<h3 style="display: none;color: red;font-weight: bolder">Its scrolling there</h3>-->
+<!--<div class="container mb-3" >-->
+<!--    <p style="height: 100px;width: 300px;overflow: scroll;">I am studying about JQuery and its a fun to learn about JQuery and-->
+<!--        Bootstrap because they give us ability to do more in less time and-->
+<!--        its good to see that one which is awesome and reasonably great.-->
+<!--    </p>-->
+
+<!--</div>-->
+
+<!--<div class="container mt-2 mb-3">-->
+<!--    <input type="password" id="txtpassword">-->
+<!--    <input type="checkbox" id="chek">-->
+<!--</div>-->
+{%  endblock content %}
+{% block script %}
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script>
+$(document).ready(function (){
+//    $("ul").on('click','li',function (){
+//        $(this).fadeOut(500);
+//    });
+//    $(".btn-success").click(function (){
+//        $("ul").append("<li>New item</li>");
+// //    });
+//     $("#city").change(function (){
+//        var selectedValue = $(this).val();
+//        if (selectedValue == 'select'){
+//            selectedValue = 'Select a city please';
+//        }
+//
+//        $("#showResult").html(selectedValue);});
+//     var result='';
+//     $('input').change(function (){
+//         if(result == ''){
+//             result =$(this).val();
+//         } else {
+//           result += ' '+$(this).val();
+//         }
+//                $("#showResult").html(result);
+//     });
+
+// Code For creating image gallery
+//
+//     $("#thumbNail img").on({
+//        mouseover: function (){
+//            $(this).css({
+//                'border':'1px solid red',
+//                'cursor':'pointer'
+//            });
+//        },
+//         mouseout:function (){
+//           $(this).css({
+//               'border':'1px solid grey',
+//               'cursor':'default'
+//           });
+//         },
+//         click:function (){
+//            var imageUrl =  $(this).attr('src');
+//            $("#mainImage").fadeOut(1000,function (){
+//               $(this).attr('src',imageUrl);
+//            }).fadeIn(1000);
+//         }
+//     });
+//     var result = [];
+//     $("li").each(function (index,element){
+//         result += $(this).text()+'|';
+//     });
+//     result =result.substr(0,result.length-1)
+//     alert(result);
+//     alert($('li').map(function (index,element){
+//        return $(this).text();
+//     }).get().join('|'));
+//      $("p").scroll(function (){
+//         $("h3").css('display','inline').fadeOut(3000);
+//      });
+//    How to make a password to show or hide
+//     $("#chek").click(function (){
+//
+//     $("#txtpassword").attr('type',$(this).is(':checked') ? 'text':'password');
+//     });
+//      $("#chek").click(function (){
+//         var currentPasswordField = $("#txtpassword");
+//         var currentPassword = $("#txtpassword").val();
+//         currentPasswordField.remove();
+//         if($(this).is(':checked')){
+//             $(this).before('<input type="text" id="txtpassword" value='+currentPassword+'>');
+//         }else {
+//         $(this).before('<input type="password" id="txtpassword" value='+currentPassword+'>');
+//
+//         }
+//
+//      });
+
+    });
+</script>
+{% endblock script %}

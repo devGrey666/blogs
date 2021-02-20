@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% block title %}
+
+  {% endblock title %}
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{url_for('static',filename='css/hello.css')}}">
+  <style>
+      .dropdown{
+      cursor:pointer;
+
+      }
+      .navbar-nav{
+      position:absolute;
+      left:40%;
+      }
+
+  </style>
+  {% block style %}
+
+  {% endblock style %}
+</head>
+<body>
+<div class="container-main ">
+<nav class="navbar navbar-expand-md bg-info">
+
+  <a class="navbar-brand disabled" href="#">NewsTimes</a>
+  <button class="navbar-toggler custom-toggler"  type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="container">
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" >
+        <a class="nav-link" href="{{ url_for('main.home') }}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="dropdown nav-item">
+       <a class="nav-link dropdown-toggle "  id="blogDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     Sites
+  </a>
+  <div class="dropdown-menu" aria-labelledby="blogDropDown">
+    <h6 class="ml-1 text-info">Pakistan</h6>
+        <a class="dropdown-item " href="{{url_for('authors.news_blogs',news_channel='Dawn')}}">Dawn</a>
+        <a class="dropdown-item" href="{{url_for('authors.news_blogs',news_channel='Tribune')}}">Tribune Express</a>
+  <div class="dropdown-divider"></div>
+      <h6 class="ml-1 text-info">Qatar</h6>
+    <a class="dropdown-item " href="{{url_for('authors.news_blogs',news_channel='Aljazeera')}}">Aljazeera</a>
+  </div>
+</li>
+        <li class="dropdown nav-item">
+       <a class="nav-link dropdown-toggle "  id="authorDropDown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+     Authors
+  </a>
+  <div class="dropdown-menu " id="authors" aria-labelledby="authorDropDown">
+
+  </div>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+      </li>
+      {% if current_user.is_active %}
+
+      <li class="nav-item ">
+        <a class="nav-link "  href="{{url_for('users.account') }}">Account</a>
+      </li>
+        <li class="nav-item ">
+        <a class="nav-link "  href="{{url_for('users.logout') }}">LogOut</a>
+      </li>
+      {% else %}
+      <li class="nav-item ">
+        <a class="nav-link"   href="{{url_for('users.register') }}">Sign Up</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link"  href="{{ url_for('users.login') }}" >Login</a>
+      </li>
+
+      {% endif %}
+
+    </ul>
+    </div>
+    </div>
+</nav>
+
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% if messages %}
+{% for category,message in messages %}
+  <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+  <strong>{{message}}</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{%  endif %}
+{% endwith %}
+{% block innerContent %}
+
+{% endblock innerContent %}
+</div>
+
+{% block content %}
+
+{% endblock content %}
+<!--{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    {% for category,message in messages %}
+      <div class="alert alert-{{category}}">{{message}}</div>
+     {% endfor %}
+  {% endif %}
+{% endwith  %}-->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/jquery.js')}}"></script>
+
+
+<!--<script type="text/javascript" src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='js/npm.js')}}"></script>
+-->
+{% block script %}
+
+{% endblock script %}
+
+<script>
+    $(document).ready(function(){
+    $.ajax({
+    url:'/author',
+    type:'GET',
+    error:function(){
+    console.log("Error occured in fetching result")
+    },
+    success:function(resp){
+    console.log('success')
+    for (var i = 1; i <= resp.length ;i++){
+    new_html = '<a class="dropdown-item list-item " href="/author/'+ resp.data[i].author_id + '">'+resp.data[i].author_name+'</a>';
+    $("#authors").append(new_html);
+    }
+    }
+    });
+    });
+
+</script>
+</body>
+</html>
